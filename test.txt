@@ -1,14 +1,40 @@
-FUNCTION TEST(A , B , C){
+/* THIS IS PROGRAM TO DESCRIBE MY PARSER
+   IT'S NEW LANGUAGE
+*/
+FUNCTION MAIN(){
+    PRINT "HELLO , THIS IS PROGRAM COMPILED BY MY LANGUAGE"
 
-    FOR 1 TO 10{
-        PRINT "A"
-    }
+    -- SET VARIABLE EXAMPLE
+    VAR A = 10
+    VAR B = 20
+    VAR C
 
-    IF A == B{
+    -- PRINT VARIABLE EXAMPLE
     PRINT A
-    READ "A" TO B
-    IF B != NULL{
-        PRINT "A"
+
+    -- LOOP EXAMPLE
+    FOR 1 TO 10{
+        PRINT "IN LOOP"
     }
+
+    -- IF EXAMPLE
+    IF A == B {
+        PRINT "CONDITION IS TRUE"
     }
+
+    -- READ EXAMPLE
+    READ "C:\MEMO.TXT" TO C
+
+    -- CALL FUNCTION EXAMPLE
+    IF C != NULL{
+        SUB_MAIN(C)
+    }
+
+}
+
+-- DEFINE NEW FUNCTION EXAMPLE
+FUNCTION SUB_MAIN(A){
+    PRINT "IN SUB_MAIN"
+    PRINT A
+    PRINT B
 }

@@ -1,8 +1,5 @@
 options {
   IGNORE_CASE = true;
-  DEBUG_LOOKAHEAD = true;
-  STATIC = false;
-  ERROR_REPORTING = false;
   OUTPUT_DIRECTORY = "../src/com/lopiter/parser";
 }
 
@@ -26,6 +23,21 @@ SKIP :
  < ( " " | "\t" | "\r")+ >
 }
 
+SPECIAL_TOKEN :
+{
+  < MULTI_LINE_COMMENT :
+    "/*" (~[ "*" ])* "*"
+    (
+      "*"
+    |
+      (
+        ~[ "*", "/" ] (~[ "*" ])* "*"
+      )
+    )*
+    "/" >
+| < LINE_COMMENT : "--" (~[ "\r", "\n" ])* >
+}
+
 
 TOKEN :{
 < FUNCTION : "FUNCTION">
@@ -34,12 +46,14 @@ TOKEN :{
 | < NULL : "NULL">
 | < PRINT :"PRINT" >
 | < READ : "READ" >
-| <TO : "TO" >
+| < TO : "TO" >
+| < VAR : "VAR">
 | < LEFT_BRACE : "{" >
 | < RIGHT_BRACE : "}" >
 | < LEFT_PARENTHESIS : "(">
 | < RIGHT_PARENTHESIS : ")">
 | < COMMA_CHAR : ",">
+| < EQUAL : "=">
 | < IF_EQUAL : "==">
 | < IF_NOT_EQUAL : "!=">
 | < INTEGER : (< DIGIT >)+ >
@@ -65,12 +79,18 @@ TOKEN :{
  >
 }
 
+void compilationunit() :
+{}
+{
+    (function())+
+}
+
 void function() :
 {}
 {
     <FUNCTION> <IDENTIFIER> <LEFT_PARENTHESIS> [<IDENTIFIER>] (<COMMA_CHAR> <IDENTIFIER>)* <RIGHT_PARENTHESIS>
     <LEFT_BRACE>
-    statement()
+    [ statement() ]
     <RIGHT_BRACE>
 }
 
@@ -81,6 +101,8 @@ void statement() :
     | forStatement()
     | ifStatemet()
     | readStatement()
+    | callStatement()
+    | setValueStatement()
     )+
 }
 
@@ -107,4 +129,18 @@ void readStatement() :
 {}
 {
     <READ> <QUOTED_IDENTIFIER> <TO> <IDENTIFIER>
+}
+
+void callStatement() :
+{}
+{
+    <IDENTIFIER><LEFT_PARENTHESIS> [<IDENTIFIER>] (<COMMA_CHAR> <IDENTIFIER>)* <RIGHT_PARENTHESIS>
+}
+
+void setValueStatement() :
+{
+    Token varToken;
+}
+{
+    <VAR> varToken = <IDENTIFIER>{System.out.println(varToken);} [<EQUAL> (<IDENTIFIER> | <QUOTED_IDENTIFIER> | <INTEGER> ) ]
 }

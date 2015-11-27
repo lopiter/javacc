@@ -13,7 +13,7 @@ public class MyParserTest {
     @Test
     public void ParserTest() throws FileNotFoundException, ParseException {
         MyParser parser = new MyParser(new FileInputStream("test.txt"));
-        parser.function();
+        parser.compilationunit();
     }
 
 }

@@ -4,104 +4,238 @@ package com.lopiter.parser;
 
 public class MyParser implements MyParserConstants {
 
-  final public void function() throws ParseException {
-    trace_call("function");
-    try {
-      jj_consume_token(FUNCTION);
-      jj_consume_token(IDENTIFIER);
-      jj_consume_token(LEFT_PARENTHESIS);
+  static final public void compilationunit() throws ParseException {
+    label_1:
+    while (true) {
+      function();
       switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
-      case IDENTIFIER:{
-        jj_consume_token(IDENTIFIER);
+      case FUNCTION:{
+        ;
         break;
         }
       default:
+        jj_la1[0] = jj_gen;
+        break label_1;
+      }
+    }
+  }
+
+  static final public void function() throws ParseException {
+    jj_consume_token(FUNCTION);
+    jj_consume_token(IDENTIFIER);
+    jj_consume_token(LEFT_PARENTHESIS);
+    switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+    case IDENTIFIER:{
+      jj_consume_token(IDENTIFIER);
+      break;
+      }
+    default:
+      jj_la1[1] = jj_gen;
+      ;
+    }
+    label_2:
+    while (true) {
+      switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+      case COMMA_CHAR:{
         ;
-      }
-      label_1:
-      while (true) {
-        switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
-        case COMMA_CHAR:{
-          ;
-          break;
-          }
-        default:
-          break label_1;
+        break;
         }
-        jj_consume_token(COMMA_CHAR);
-        jj_consume_token(IDENTIFIER);
+      default:
+        jj_la1[2] = jj_gen;
+        break label_2;
       }
-      jj_consume_token(RIGHT_PARENTHESIS);
-      jj_consume_token(LEFT_BRACE);
+      jj_consume_token(COMMA_CHAR);
+      jj_consume_token(IDENTIFIER);
+    }
+    jj_consume_token(RIGHT_PARENTHESIS);
+    jj_consume_token(LEFT_BRACE);
+    switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+    case FOR:
+    case IF:
+    case PRINT:
+    case READ:
+    case VAR:
+    case IDENTIFIER:{
       statement();
-      jj_consume_token(RIGHT_BRACE);
-    } finally {
-      trace_return("function");
-    }
-  }
-
-  final public void statement() throws ParseException {
-    trace_call("statement");
-    try {
-      label_2:
-      while (true) {
-        switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
-        case PRINT:{
-          printStatement();
-          break;
-          }
-        case FOR:{
-          forStatement();
-          break;
-          }
-        case IF:{
-          ifStatemet();
-          break;
-          }
-        case READ:{
-          readStatement();
-          break;
-          }
-        default:
-          jj_consume_token(-1);
-          throw new ParseException();
-        }
-        switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
-        case FOR:
-        case IF:
-        case PRINT:
-        case READ:{
-          ;
-          break;
-          }
-        default:
-          break label_2;
-        }
+      break;
       }
-    } finally {
-      trace_return("statement");
+    default:
+      jj_la1[3] = jj_gen;
+      ;
+    }
+    jj_consume_token(RIGHT_BRACE);
+  }
+
+  static final public void statement() throws ParseException {
+    label_3:
+    while (true) {
+      switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+      case PRINT:{
+        printStatement();
+        break;
+        }
+      case FOR:{
+        forStatement();
+        break;
+        }
+      case IF:{
+        ifStatemet();
+        break;
+        }
+      case READ:{
+        readStatement();
+        break;
+        }
+      case IDENTIFIER:{
+        callStatement();
+        break;
+        }
+      case VAR:{
+        setValueStatement();
+        break;
+        }
+      default:
+        jj_la1[4] = jj_gen;
+        jj_consume_token(-1);
+        throw new ParseException();
+      }
+      switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+      case FOR:
+      case IF:
+      case PRINT:
+      case READ:
+      case VAR:
+      case IDENTIFIER:{
+        ;
+        break;
+        }
+      default:
+        jj_la1[5] = jj_gen;
+        break label_3;
+      }
     }
   }
 
-  final public void forStatement() throws ParseException {
-    trace_call("forStatement");
-    try {
-      jj_consume_token(FOR);
-      jj_consume_token(INTEGER);
-      jj_consume_token(TO);
-      jj_consume_token(INTEGER);
-      jj_consume_token(LEFT_BRACE);
-      statement();
-      jj_consume_token(RIGHT_BRACE);
-    } finally {
-      trace_return("forStatement");
+  static final public void forStatement() throws ParseException {
+    jj_consume_token(FOR);
+    jj_consume_token(INTEGER);
+    jj_consume_token(TO);
+    jj_consume_token(INTEGER);
+    jj_consume_token(LEFT_BRACE);
+    statement();
+    jj_consume_token(RIGHT_BRACE);
+  }
+
+  static final public void printStatement() throws ParseException {
+    jj_consume_token(PRINT);
+    switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+    case IDENTIFIER:{
+      jj_consume_token(IDENTIFIER);
+      break;
+      }
+    case QUOTED_IDENTIFIER:{
+      jj_consume_token(QUOTED_IDENTIFIER);
+      break;
+      }
+    default:
+      jj_la1[6] = jj_gen;
+      jj_consume_token(-1);
+      throw new ParseException();
     }
   }
 
-  final public void printStatement() throws ParseException {
-    trace_call("printStatement");
-    try {
-      jj_consume_token(PRINT);
+  static final public void ifStatemet() throws ParseException {
+    jj_consume_token(IF);
+    switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+    case IDENTIFIER:{
+      jj_consume_token(IDENTIFIER);
+      break;
+      }
+    case NULL:{
+      jj_consume_token(NULL);
+      break;
+      }
+    default:
+      jj_la1[7] = jj_gen;
+      jj_consume_token(-1);
+      throw new ParseException();
+    }
+    switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+    case IF_EQUAL:{
+      jj_consume_token(IF_EQUAL);
+      break;
+      }
+    case IF_NOT_EQUAL:{
+      jj_consume_token(IF_NOT_EQUAL);
+      break;
+      }
+    default:
+      jj_la1[8] = jj_gen;
+      jj_consume_token(-1);
+      throw new ParseException();
+    }
+    switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+    case IDENTIFIER:{
+      jj_consume_token(IDENTIFIER);
+      break;
+      }
+    case NULL:{
+      jj_consume_token(NULL);
+      break;
+      }
+    default:
+      jj_la1[9] = jj_gen;
+      jj_consume_token(-1);
+      throw new ParseException();
+    }
+    jj_consume_token(LEFT_BRACE);
+    statement();
+    jj_consume_token(RIGHT_BRACE);
+  }
+
+  static final public void readStatement() throws ParseException {
+    jj_consume_token(READ);
+    jj_consume_token(QUOTED_IDENTIFIER);
+    jj_consume_token(TO);
+    jj_consume_token(IDENTIFIER);
+  }
+
+  static final public void callStatement() throws ParseException {
+    jj_consume_token(IDENTIFIER);
+    jj_consume_token(LEFT_PARENTHESIS);
+    switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+    case IDENTIFIER:{
+      jj_consume_token(IDENTIFIER);
+      break;
+      }
+    default:
+      jj_la1[10] = jj_gen;
+      ;
+    }
+    label_4:
+    while (true) {
+      switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+      case COMMA_CHAR:{
+        ;
+        break;
+        }
+      default:
+        jj_la1[11] = jj_gen;
+        break label_4;
+      }
+      jj_consume_token(COMMA_CHAR);
+      jj_consume_token(IDENTIFIER);
+    }
+    jj_consume_token(RIGHT_PARENTHESIS);
+  }
+
+  static final public void setValueStatement() throws ParseException {Token varToken;
+    jj_consume_token(VAR);
+    varToken = jj_consume_token(IDENTIFIER);
+System.out.println(varToken);
+    switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+    case EQUAL:{
+      jj_consume_token(EQUAL);
       switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
       case IDENTIFIER:{
         jj_consume_token(IDENTIFIER);
@@ -111,86 +245,41 @@ public class MyParser implements MyParserConstants {
         jj_consume_token(QUOTED_IDENTIFIER);
         break;
         }
+      case INTEGER:{
+        jj_consume_token(INTEGER);
+        break;
+        }
       default:
+        jj_la1[12] = jj_gen;
         jj_consume_token(-1);
         throw new ParseException();
       }
-    } finally {
-      trace_return("printStatement");
+      break;
+      }
+    default:
+      jj_la1[13] = jj_gen;
+      ;
     }
   }
 
-  final public void ifStatemet() throws ParseException {
-    trace_call("ifStatemet");
-    try {
-      jj_consume_token(IF);
-      switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
-      case IDENTIFIER:{
-        jj_consume_token(IDENTIFIER);
-        break;
-        }
-      case NULL:{
-        jj_consume_token(NULL);
-        break;
-        }
-      default:
-        jj_consume_token(-1);
-        throw new ParseException();
-      }
-      switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
-      case IF_EQUAL:{
-        jj_consume_token(IF_EQUAL);
-        break;
-        }
-      case IF_NOT_EQUAL:{
-        jj_consume_token(IF_NOT_EQUAL);
-        break;
-        }
-      default:
-        jj_consume_token(-1);
-        throw new ParseException();
-      }
-      switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
-      case IDENTIFIER:{
-        jj_consume_token(IDENTIFIER);
-        break;
-        }
-      case NULL:{
-        jj_consume_token(NULL);
-        break;
-        }
-      default:
-        jj_consume_token(-1);
-        throw new ParseException();
-      }
-      jj_consume_token(LEFT_BRACE);
-      statement();
-      jj_consume_token(RIGHT_BRACE);
-    } finally {
-      trace_return("ifStatemet");
-    }
-  }
-
-  final public void readStatement() throws ParseException {
-    trace_call("readStatement");
-    try {
-      jj_consume_token(READ);
-      jj_consume_token(QUOTED_IDENTIFIER);
-      jj_consume_token(TO);
-      jj_consume_token(IDENTIFIER);
-    } finally {
-      trace_return("readStatement");
-    }
-  }
-
+  static private boolean jj_initialized_once = false;
   /** Generated Token Manager. */
-  public MyParserTokenManager token_source;
-  SimpleCharStream jj_input_stream;
+  static public MyParserTokenManager token_source;
+  static SimpleCharStream jj_input_stream;
   /** Current token. */
-  public Token token;
+  static public Token token;
   /** Next token. */
-  public Token jj_nt;
-  private int jj_ntk;
+  static public Token jj_nt;
+  static private int jj_ntk;
+  static private int jj_gen;
+  static final private int[] jj_la1 = new int[14];
+  static private int[] jj_la1_0;
+  static {
+      jj_la1_init_0();
+   }
+   private static void jj_la1_init_0() {
+      jj_la1_0 = new int[] {0x20,0x800000,0x20000,0x8016c0,0x8016c0,0x8016c0,0x2800000,0x800100,0x180000,0x800100,0x800000,0x20000,0x2a00000,0x40000,};
+   }
 
   /** Constructor with InputStream. */
   public MyParser(java.io.InputStream stream) {
@@ -198,45 +287,76 @@ public class MyParser implements MyParserConstants {
   }
   /** Constructor with InputStream and supplied encoding */
   public MyParser(java.io.InputStream stream, String encoding) {
+    if (jj_initialized_once) {
+      System.out.println("ERROR: Second call to constructor of static parser.  ");
+      System.out.println("       You must either use ReInit() or set the JavaCC option STATIC to false");
+      System.out.println("       during parser generation.");
+      throw new Error();
+    }
+    jj_initialized_once = true;
     try { jj_input_stream = new SimpleCharStream(stream, encoding, 1, 1); } catch(java.io.UnsupportedEncodingException e) { throw new RuntimeException(e); }
     token_source = new MyParserTokenManager(jj_input_stream);
     token = new Token();
     jj_ntk = -1;
+    jj_gen = 0;
+    for (int i = 0; i < 14; i++) jj_la1[i] = -1;
   }
 
   /** Reinitialise. */
-  public void ReInit(java.io.InputStream stream) {
+  static public void ReInit(java.io.InputStream stream) {
      ReInit(stream, null);
   }
   /** Reinitialise. */
-  public void ReInit(java.io.InputStream stream, String encoding) {
+  static public void ReInit(java.io.InputStream stream, String encoding) {
     try { jj_input_stream.ReInit(stream, encoding, 1, 1); } catch(java.io.UnsupportedEncodingException e) { throw new RuntimeException(e); }
     token_source.ReInit(jj_input_stream);
     token = new Token();
     jj_ntk = -1;
+    jj_gen = 0;
+    for (int i = 0; i < 14; i++) jj_la1[i] = -1;
   }
 
   /** Constructor. */
   public MyParser(java.io.Reader stream) {
+    if (jj_initialized_once) {
+      System.out.println("ERROR: Second call to constructor of static parser. ");
+      System.out.println("       You must either use ReInit() or set the JavaCC option STATIC to false");
+      System.out.println("       during parser generation.");
+      throw new Error();
+    }
+    jj_initialized_once = true;
     jj_input_stream = new SimpleCharStream(stream, 1, 1);
     token_source = new MyParserTokenManager(jj_input_stream);
     token = new Token();
     jj_ntk = -1;
+    jj_gen = 0;
+    for (int i = 0; i < 14; i++) jj_la1[i] = -1;
   }
 
   /** Reinitialise. */
-  public void ReInit(java.io.Reader stream) {
+  static public void ReInit(java.io.Reader stream) {
     jj_input_stream.ReInit(stream, 1, 1);
     token_source.ReInit(jj_input_stream);
     token = new Token();
     jj_ntk = -1;
+    jj_gen = 0;
+    for (int i = 0; i < 14; i++) jj_la1[i] = -1;
   }
 
   /** Constructor with generated Token Manager. */
   public MyParser(MyParserTokenManager tm) {
+    if (jj_initialized_once) {
+      System.out.println("ERROR: Second call to constructor of static parser. ");
+      System.out.println("       You must either use ReInit() or set the JavaCC option STATIC to false");
+      System.out.println("       during parser generation.");
+      throw new Error();
+    }
+    jj_initialized_once = true;
     token_source = tm;
     token = new Token();
     jj_ntk = -1;
+    jj_gen = 0;
+    for (int i = 0; i < 14; i++) jj_la1[i] = -1;
   }
 
   /** Reinitialise. */
@@ -244,33 +364,36 @@ public class MyParser implements MyParserConstants {
     token_source = tm;
     token = new Token();
     jj_ntk = -1;
+    jj_gen = 0;
+    for (int i = 0; i < 14; i++) jj_la1[i] = -1;
   }
 
-  private Token jj_consume_token(int kind) throws ParseException {
+  static private Token jj_consume_token(int kind) throws ParseException {
     Token oldToken;
     if ((oldToken = token).next != null) token = token.next;
     else token = token.next = token_source.getNextToken();
     jj_ntk = -1;
     if (token.kind == kind) {
-      trace_token(token, "");
+      jj_gen++;
       return token;
     }
     token = oldToken;
+    jj_kind = kind;
     throw generateParseException();
   }
 
 
 /** Get the next Token. */
-  final public Token getNextToken() {
+  static final public Token getNextToken() {
     if (token.next != null) token = token.next;
     else token = token.next = token_source.getNextToken();
     jj_ntk = -1;
-      trace_token(token, " (in getNextToken)");
+    jj_gen++;
     return token;
   }
 
 /** Get the specific Token. */
-  final public Token getToken(int index) {
+  static final public Token getToken(int index) {
     Token t = token;
     for (int i = 0; i < index; i++) {
       if (t.next != null) t = t.next;
@@ -279,70 +402,54 @@ public class MyParser implements MyParserConstants {
     return t;
   }
 
-  private int jj_ntk_f() {
+  static private int jj_ntk_f() {
     if ((jj_nt=token.next) == null)
       return (jj_ntk = (token.next=token_source.getNextToken()).kind);
     else
       return (jj_ntk = jj_nt.kind);
   }
 
+  static private java.util.List<int[]> jj_expentries = new java.util.ArrayList<int[]>();
+  static private int[] jj_expentry;
+  static private int jj_kind = -1;
+
   /** Generate ParseException. */
-  public ParseException generateParseException() {
-    Token errortok = token.next;
-    int line = errortok.beginLine, column = errortok.beginColumn;
-    String mess = (errortok.kind == 0) ? tokenImage[0] : errortok.image;
-    return new ParseException("Parse error at line " + line + ", column " + column + ".  Encountered: " + mess);
-  }
-
-  private int trace_indent = 0;
-  private boolean trace_enabled = true;
-
-/** Enable tracing. */
-  final public void enable_tracing() {
-    trace_enabled = true;
-  }
-
-/** Disable tracing. */
-  final public void disable_tracing() {
-    trace_enabled = false;
-  }
-
-  private void trace_call(String s) {
-    if (trace_enabled) {
-      for (int i = 0; i < trace_indent; i++) { System.out.print(" "); }
-      System.out.println("Call:   " + s);
+  static public ParseException generateParseException() {
+    jj_expentries.clear();
+    boolean[] la1tokens = new boolean[28];
+    if (jj_kind >= 0) {
+      la1tokens[jj_kind] = true;
+      jj_kind = -1;
     }
-    trace_indent = trace_indent + 2;
-  }
-
-  private void trace_return(String s) {
-    trace_indent = trace_indent - 2;
-    if (trace_enabled) {
-      for (int i = 0; i < trace_indent; i++) { System.out.print(" "); }
-      System.out.println("Return: " + s);
-    }
-  }
-
-  private void trace_token(Token t, String where) {
-    if (trace_enabled) {
-      for (int i = 0; i < trace_indent; i++) { System.out.print(" "); }
-      System.out.print("Consumed token: <" + tokenImage[t.kind]);
-      if (t.kind != 0 && !tokenImage[t.kind].equals("\"" + t.image + "\"")) {
-        System.out.print(": \"" + t.image + "\"");
+    for (int i = 0; i < 14; i++) {
+      if (jj_la1[i] == jj_gen) {
+        for (int j = 0; j < 32; j++) {
+          if ((jj_la1_0[i] & (1<<j)) != 0) {
+            la1tokens[j] = true;
+          }
+        }
       }
-      System.out.println(" at line " + t.beginLine + " column " + t.beginColumn + ">" + where);
     }
+    for (int i = 0; i < 28; i++) {
+      if (la1tokens[i]) {
+        jj_expentry = new int[1];
+        jj_expentry[0] = i;
+        jj_expentries.add(jj_expentry);
+      }
+    }
+    int[][] exptokseq = new int[jj_expentries.size()][];
+    for (int i = 0; i < jj_expentries.size(); i++) {
+      exptokseq[i] = jj_expentries.get(i);
+    }
+    return new ParseException(token, exptokseq, tokenImage);
   }
 
-  private void trace_scan(Token t1, int t2) {
-    if (trace_enabled) {
-      for (int i = 0; i < trace_indent; i++) { System.out.print(" "); }
-      System.out.print("Visited token: <" + tokenImage[t1.kind]);
-      if (t1.kind != 0 && !tokenImage[t1.kind].equals("\"" + t1.image + "\"")) {
-        System.out.print(": \"" + t1.image + "\"");
-      }
-      System.out.println(" at line " + t1.beginLine + " column " + t1.beginColumn + ">; Expected token: <" + tokenImage[t2] + ">");
-    }
+  /** Enable tracing. */
+  static final public void enable_tracing() {
+  }
+
+  /** Disable tracing. */
+  static final public void disable_tracing() {
   }
 
  }

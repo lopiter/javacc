@@ -11,47 +11,55 @@ public interface MyParserConstants {
   /** End of File. */
   int EOF = 0;
   /** RegularExpression Id. */
-  int FUNCTION = 3;
+  int MULTI_LINE_COMMENT = 3;
   /** RegularExpression Id. */
-  int FOR = 4;
+  int LINE_COMMENT = 4;
   /** RegularExpression Id. */
-  int IF = 5;
+  int FUNCTION = 5;
   /** RegularExpression Id. */
-  int NULL = 6;
+  int FOR = 6;
   /** RegularExpression Id. */
-  int PRINT = 7;
+  int IF = 7;
   /** RegularExpression Id. */
-  int READ = 8;
+  int NULL = 8;
   /** RegularExpression Id. */
-  int TO = 9;
+  int PRINT = 9;
   /** RegularExpression Id. */
-  int LEFT_BRACE = 10;
+  int READ = 10;
   /** RegularExpression Id. */
-  int RIGHT_BRACE = 11;
+  int TO = 11;
   /** RegularExpression Id. */
-  int LEFT_PARENTHESIS = 12;
+  int VAR = 12;
   /** RegularExpression Id. */
-  int RIGHT_PARENTHESIS = 13;
+  int LEFT_BRACE = 13;
   /** RegularExpression Id. */
-  int COMMA_CHAR = 14;
+  int RIGHT_BRACE = 14;
   /** RegularExpression Id. */
-  int IF_EQUAL = 15;
+  int LEFT_PARENTHESIS = 15;
   /** RegularExpression Id. */
-  int IF_NOT_EQUAL = 16;
+  int RIGHT_PARENTHESIS = 16;
   /** RegularExpression Id. */
-  int INTEGER = 17;
+  int COMMA_CHAR = 17;
   /** RegularExpression Id. */
-  int DIGIT = 18;
+  int EQUAL = 18;
   /** RegularExpression Id. */
-  int IDENTIFIER = 19;
+  int IF_EQUAL = 19;
   /** RegularExpression Id. */
-  int CHAR_LITERAL = 20;
+  int IF_NOT_EQUAL = 20;
   /** RegularExpression Id. */
-  int QUOTED_IDENTIFIER = 21;
+  int INTEGER = 21;
   /** RegularExpression Id. */
-  int LETTER = 22;
+  int DIGIT = 22;
   /** RegularExpression Id. */
-  int SPECIAL_CHARS = 23;
+  int IDENTIFIER = 23;
+  /** RegularExpression Id. */
+  int CHAR_LITERAL = 24;
+  /** RegularExpression Id. */
+  int QUOTED_IDENTIFIER = 25;
+  /** RegularExpression Id. */
+  int LETTER = 26;
+  /** RegularExpression Id. */
+  int SPECIAL_CHARS = 27;
 
   /** Lexical state. */
   int DEFAULT = 0;
@@ -61,6 +69,8 @@ public interface MyParserConstants {
     "<EOF>",
     "<token of kind 1>",
     "<token of kind 2>",
+    "<MULTI_LINE_COMMENT>",
+    "<LINE_COMMENT>",
     "\"FUNCTION\"",
     "\"FOR\"",
     "\"IF\"",
@@ -68,11 +78,13 @@ public interface MyParserConstants {
     "\"PRINT\"",
     "\"READ\"",
     "\"TO\"",
+    "\"VAR\"",
     "\"{\"",
     "\"}\"",
     "\"(\"",
     "\")\"",
     "\",\"",
+    "\"=\"",
     "\"==\"",
     "\"!=\"",
     "<INTEGER>",
