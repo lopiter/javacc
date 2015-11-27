@@ -1,0 +1,14 @@
+FUNCTION TEST(A , B , C){
+
+    FOR 1 TO 10{
+        PRINT "A"
+    }
+
+    IF A == B{
+    PRINT A
+    READ "A" TO B
+    IF B != NULL{
+        PRINT "A"
+    }
+    }
+}

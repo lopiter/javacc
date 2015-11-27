@@ -1,0 +1,1020 @@
+options
+{
+  IGNORE_CASE = true;
+  LOOKAHEAD = 8;
+  DEBUG_LOOKAHEAD = false;
+  DEBUG_PARSER = true;
+  STATIC = false;
+  UNICODE_INPUT = true;
+  JAVA_UNICODE_ESCAPE = false;
+  OUTPUT_DIRECTORY="../src/com/lgcns/parser/cobol/dom/pro/sql/internal";
+}
+
+PARSER_BEGIN(OracleQueryParser)
+
+
+package com.lgcns.parser.cobol.dom.pro.sql.internal; 
+
+
+public class OracleQueryParser
+{
+	public DebugCobolToken eToken = new DebugCobolToken();//debug token
+}
+
+PARSER_END(OracleQueryParser)
+
+<SQL_STATE> TOKEN :
+{
+ 
+    <ESQL_DECLARE : "DECLARE" >
+  | <ESQL_SECTION : "SECTION" >
+  | <ESQL_EQ : "=" >
+  | <ESQL_END_EXEC : "END-EXEC" (<SQL_PERIOD_CHAR>)? > : DEFAULT
+  | <ESQL_SQLCA : "SQLCA" >
+  | <ESQL_ORACA : "ORACA" >
+  | <ESQL_IFDEF : "IFDEF" >
+  | <ESQL_ENDIF : "ENDIF" >
+  | <ESQL_WHENEVER : "WHENEVER" >
+  | <ESQL_SQLERROR : "SQLERROR" >
+  | <ESQL_PERFORM : "PERFORM" >
+  | <ESQL_CONNECT : "CONNECT" >
+  | <ESQL_IDENTIFIED : "IDENTIFIED" >
+  | <ESQL_COMMIT : "COMMIT" >
+  | <ESQL_WORK : "WORK" >
+  | <ESQL_RELEASE : "RELEASE" >
+  | <ESQL_ROLLBACK : "ROLLBACK" >
+  | <ESQL_AT : "AT" >
+  | <ESQL_ALTER : "ALTER" >
+  | <ESQL_AUTHORIZATION : "AUTHORIZATION" >
+  | <ESQL_SYSDBA : "SYSDBA" >
+  | <ESQL_SYSOPER : "SYSOPER" >
+  | <ESQL_MODE : "MODE" >  
+  | <ESQL_SAVEPOINT : "SAVEPOINT" > 
+  | <ESQL_TRANSACTION : "TRANSACTION" >
+  | <ESQL_READ : "READ" >  
+  | <ESQL_ONLY : "ONLY" > 
+  | <ESQL_CURSOR : "CURSOR" >
+  | <ESQL_FOR : "FOR" >   
+  | <ESQL_FOUND : "FOUND" >
+  | <ESQL_GOTO : "GOTO" >   
+  | <ESQL_FETCH : "FETCH" >
+  | <ESQL_COMMENT : "COMMENT" >  
+  | <ESQL_LOCK : "LOCK" >  
+  | <ESQL_SHARE : "SHARE" >  
+  | <ESQL_NOWAIT : "NOWAIT" >  
+  | <ESQL_ROW : "ROW" >
+  | <ESQL_FORCE : "FORCE" >
+  | <ESQL_ALLOCATE : "ALLOCATE" >
+  | <ESQL_FREE : "FREE" >
+  | <ESQL_VAR : "VAR" >
+  | <ESQL_CONTINUE: "CONTINUE" >
+  | <ESQL_CLOSE: "CLOSE" >
+  | <ESQL_CALL: "CALL" >
+  | <ESQL_REFERENCE: "REFERENCE" >
+  | <ESQL_CONVBUFSZ: "CONVBUFSZ" >  
+  | <ESQL_PRIOR: "PRIOR" >
+  | <ESQL_NEXT: "NEXT" >
+  | <ESQL_CURRENT: "CURRENT" >
+  | <ESQL_RELATIVE: "RELATIVE" >
+  | <ESQL_ABSOLUTE: "ABSOLUTE" >      
+  | <ESQL_DESCRIPTOR: "DESCRIPTOR" >
+  | <ESQL_ASTRISK: "@" >
+  | <ESQL_EXECUTE: "EXECUTE" >
+  | <ESQL_OPTION: "OPTION" >
+  | <ESQL_IMMEDIATE: "IMMEDIATE" >
+  | <ESQL_RELEASE_CURSOR: "RELEASE_CURSOR" >
+  | <ESQL_PREPARE: "PREPARE" >
+  | <ESQL_GLOBAL: "GLOBAL" >
+  | <ESQL_LOCAL: "LOCAL" >  
+  | <ESQL_DEALLOCATE: "DEALLOCATE" >  
+  | <ESQL_DESCRIBE: "DESCRIBE" >
+  | <ESQL_INPUT: "INPUT" >
+  | <ESQL_OUTPUT: "OUTPUT" >
+  | <ESQL_GET: "GET" >
+  | <ESQL_BIND: "BIND" >
+  | <ESQL_VARIABLES: "VARIABLES" >
+  | <ESQL_ENABLE: "ENABLE" >
+  | <ESQL_THREADS: "THREADS" >
+  | <ESQL_USE: "USE" >
+  | <ESQL_CONTEXT: "CONTEXT" >
+  | <ESQL_LOB: "LOB" >
+  | <ESQL_APPEND: "APPEND" >
+  | <ESQL_ASSIGN: "ASSIGN" >
+  | <ESQL_TO: "TO" >
+  | <ESQL_FILE: "FILE" >
+  | <ESQL_COPY: "COPY" >
+  | <ESQL_TEMPORARY: "TEMPORARY" >
+  | <ESQL_BUFFERING: "BUFFERING" >
+  | <ESQL_DISABLE: "DISABLE" >
+  | <ESQL_ERASE: "ERASE" >
+  | <ESQL_FLUSH: "FLUSH" >
+  | <ESQL_WRITE: "WRITE" >  
+  | <ESQL_LOAD: "LOAD" >
+  | <ESQL_ONE: "ONE" >
+}
+
+
+<SQL_STATE> SKIP :
+{
+ < ("\n")+ >
+}
+
+/*JAVACC_TOKEN_START*/
+
+
+<SQL_STATE> SKIP :
+{
+ < ( " " | "\t" | "\r"  | ":" | ";")+ >
+}
+
+<SQL_STATE> TOKEN :
+{
+   < SQL_ALL : "ALL" >
+| < SQL_AND : "AND" >
+| < SQL_ANY : "ANY" >
+| < SQL_AS : "AS" >
+| < SQL_ASC : "ASC" >
+| < SQL_BEGIN : "BEGIN" >
+| < SQL_BETWEEN : "BETWEEN" >
+| < SQL_BLOCK : "BLOCK" >
+| < SQL_BREADTH : "BREADTH" >
+| < SQL_BY : "BY" >
+| < SQL_CASE : "CASE" >
+| < SQL_CHECK : "SCHECK" >
+| < SQL_CREATE : "CREATE" >
+| < SQL_CROSS : "CROSS" >
+| < SQL_DEFAULT : "DEFAULT" >
+| < SQL_DELETE : "DELETE" >
+| < SQL_DESC : "DESC" >
+| < SQL_DISTINCT : "DISTINCT" >
+| < SQL_DO : "DO" >
+| < SQL_DROP : "DROP" >
+| < SQL_ELSE : "ELSE" >
+| < SQL_END : "END" >
+| < SQL_ERRORS : "ERRORS" >
+| < SQL_ESCAPE : "ESCAPE" >
+| < SQL_EXCLUDE : "EXCLUDE" >
+| < SQL_EXISTS : "EXISTS" >
+| < SQL_FROM : "FROM" >
+| < SQL_FULL : "FULL" >
+| < SQL_GROUP : "GROUP" >
+| < SQL_HAVING : "HAVING" >
+| < SQL_IN : "IN" >
+| < SQL_INCLUDE : "INCLUDE" >
+| < SQL_INDEX : "INDEX" >
+| < SQL_INNER : "INNER" >
+| < SQL_INSERT : "INSERT" >
+| < SQL_INTO : "INTO" >
+| < SQL_IS : "IS" >
+| < SQL_JOIN : "JOIN" >
+| < SQL_KEY : "KEY" >
+| < SQL_LEFT : "LEFT" >
+| < SQL_LIKE : "LIKE" >
+| < SQL_LIMIT : "LIMIT" >
+| < SQL_LOCKED : "LOCKED" >
+| < SQL_MATCHED : "MATCHED" >
+| < SQL_MERGE : "MERGE" >
+| < SQL_NATURAL : "NATURAL" >
+| < SQL_NOCYCLE : "NOCYCLE" >
+| < SQL_NOT : "NOT" >
+| < SQL_NULL : "NULL" >
+| < SQL_OF : "OF" >
+| < SQL_OFFSET : "OFFSET" >
+| < SQL_ON : "ON" >
+| < SQL_OPEN : "OPEN" >
+| < SQL_OR : "OR" >
+| < SQL_ORA_APPLY : "APPLY" >
+| < SQL_ORA_CV : "CV" >
+| < SQL_ORA_CYCLE : "CYCLE" >
+| < SQL_ORA_DEPTH : "DEPTH" >
+| < SQL_ORA_FIRST : "FIRST" >
+| < SQL_ORA_GROUPING : "GROUPING" >
+| < SQL_ORA_INTERSECT : "INTERSECT" >
+| < SQL_ORA_ITERATION_NUMBER : "ITERATION_NUMBER" >
+| < SQL_ORA_LAST : "LAST" >
+| < SQL_ORA_LATERAL : "LATERAL" >
+| < SQL_ORA_LOG : "LOG" >
+| < SQL_ORA_MINUS : "MINUS" >
+| < SQL_ORA_NULLS : "NULLS" >
+| < SQL_ORA_NUMTODSINTERVAL : "NUMTODSINTERVAL" >
+| < SQL_ORA_NUMTOYMINTERVAL : "NUMTOYMINTERVAL" >
+| < SQL_ORA_OVER : "OVER" >
+| < SQL_ORA_PARTITION : "PARTITION" >
+| < SQL_ORA_PERCENT_RANK : "PERCENT_RANK" >
+| < SQL_ORA_PERCENTILE_CONT : "PERCENTILE_CONT" >
+| < SQL_ORA_PERCENTILE_DISC : "PERCENTILE_DISC" >
+| < SQL_ORA_PIVOT : "PIVOT" >
+| < SQL_ORA_PRESENTNNV : "PRESENTNNV" >
+| < SQL_ORA_PRESENTV : "PRESENTV" >
+| < SQL_ORA_PREVIOUS : "PREVIOUS" >
+| < SQL_ORA_SAMPLE : "SAMPLE" >
+| < SQL_ORA_SUBPARTITION : "SUBPARTITION" >
+| < SQL_ORA_SYS_EXTRACT_UTC : "SYS_EXTRACT_UTC" >
+| < SQL_ORA_TO_DSINTERVAL : "TO_DSINTERVAL" >
+| < SQL_ORA_TO_NCHAR : "TO_NCHAR" >
+| < SQL_ORA_TO_TIMESTAMP_TZ : "TO_TIMESTAMP_TZ" >
+| < SQL_ORA_TO_YMINTERVAL : "TO_YMINTERVAL" >
+| < SQL_ORA_UNIQUE : "UNIQUE" >
+| < SQL_ORA_UNPIVOT : "UNPIVOT" >
+| < SQL_ORA_XML : "XML" >
+| < SQL_ORDER : "ORDER" >
+| < SQL_OUTER : "OUTER" >
+| < SQL_PERCENT :"PERCENT" >
+| < SQL_PRIMARY : "PRIMARY" >
+| < SQL_REJECT : "REJECT" >
+| < SQL_RIGHT : "RIGHT" >
+| < SQL_ROWS :"ROWS" >
+| < SQL_SEARCH : "SEARCH" >
+| < SQL_SEED : "SEED" >
+| < SQL_SELECT : "SELECT" >
+| < SQL_SET : "SET" >
+| < SQL_SETS : "SETS" >
+| < SQL_SIBLINGS : "SIBLINGS" >
+| < SQL_SKIP : "SKIP" >
+| < SQL_SOME : "SOME" >
+| < SQL_START : "START" >
+| < SQL_TABLE : "TABLE" >
+| < SQL_THEN : "THEN" >
+| < SQL_TIES :"TIES" >
+| < SQL_TOP : "TOP" >
+| < SQL_TRUNCATE : "TRUNCATE" >
+| < SQL_UNION : "UNION" >
+| < SQL_UNLIMITED : "UNLIMITED" >
+| < SQL_UPDATE : "UPDATE" >
+| < SQL_USING : "USING" >
+| < SQL_VALUES : "VALUES" >
+| < SQL_WAIT : "WAIT" >
+| < SQL_WHEN : "WHEN" >
+| < SQL_WHERE : "WHERE" >
+| < SQL_WITH : "WITH" >
+| < SQL_ASTERISKCHAR: "*" >
+| < SQL_LPARENCHAR: "(" >
+| < SQL_RPARENCHAR: ")" >
+| < SQL_QUESTIONCHAR: "?" >
+| < SQL_MORETHANCHAR: ">" >
+| < SQL_LESSTHANCHAR: "<" >
+| < SQL_MORETHANOREQUAL: ">" (" ")* "=" >
+| < SQL_LESSTHANOREQUAL: "<" (" ")* "=" >
+| < SQL_UNEQUALCHAR: "<>" >
+| < SQL_NOTEQUALCHAR: "!=" >
+| < SQL_CONCATCHAR: "||" >
+| < SQL_ORCHAR: "|" >
+| < SQL_XORCHAR: "^" >
+| < SQL_ANDCHAR: "&" >
+| < SQL_PLUSCHAR: "+" >
+| < SQL_SLASHCHAR: "/" >
+| < SQL_MINUSCHAR: "-" >
+| < SQL_RBRACKET : "}" >
+| < SQL_D_CHAR : "{d" >
+| < SQL_T_CHAR : "{t" >
+| < SQL_TS_CHAR : "{ts" >
+| < SQL_FN_CHAR : "{fn" >
+}
+
+<SQL_STATE> TOKEN : 
+{
+  < SQL_DOUBLE :
+    (
+      (< SQL_INTEGER >)? <SQL_PERIOD_CHAR> < SQL_INTEGER >
+      (
+        [ "e", "E" ] ([ "-", "+" ])? < SQL_INTEGER >
+      )?
+    | (< SQL_INTEGER >)+ (<SQL_PERIOD_CHAR>)? [ "e", "E" ] ([ "-", "+" ])? (< SQL_INTEGER >)+
+    ) >
+| < SQL_INTEGER : (< DIGIT >)+ >
+| < #DIGIT : [ "0"-"9" ] >
+}
+
+<SQL_STATE> SPECIAL_TOKEN :
+{
+  < MULTI_LINE_COMMENT :
+    "/*" (~[ "*" ])* "*"
+    (
+      "*"
+    |
+      (
+        ~[ "*", "/" ] (~[ "*" ])* "*"
+      )
+    )*
+    "/" >
+| < LINE_COMMENT : "--" (~[ "\r", "\n" ])* >    
+}
+
+<SQL_STATE> TOKEN :
+{
+  < SQL_IDENTIFIER :
+    (< LETTER >)+
+    (
+      < DIGIT >
+    | < LETTER >
+    | < SPECIAL_CHARS >
+    )* >
+| < SQL_CHAR_LITERAL :
+    "'" (~[ "'" ])* "'"
+    (
+      "'" (~[ "'" ])* "'"
+    )* >
+| < SQL_QUOTED_IDENTIFIER :
+    "\"" (~[ "\n", "\r", "\"" ])* "\"" >
+| < #LETTER : [ "a"-"z", "A"-"Z", "_","\uac00"-"\ud7ff"] >
+| < #SPECIAL_CHARS :
+    "+"
+  | "-"
+  | "_"
+  | "$"
+  | "->"
+ >
+}
+
+<SQL_STATE> TOKEN :
+{
+  < SQL_COMMA_CHAR : "," >
+  | < SQL_PERIOD_CHAR : "." >
+}
+
+/*JAVACC_TOKEN_END*/
+
+void TestSqlStateMent() :
+{
+  /*테스트를 위한 NON 터미널. 실제 PROC에는 포함되지 않음*/
+}
+{
+  ( SQLStatement() )+
+}
+
+/*JAVACC_NON_TERMINAL_START*/
+void SQLStatement() :
+{}
+{
+  (
+    SQLInsert()
+  | SQLSelect()
+  | SQLUpdate()
+  | SQLDelete()
+  | SQLTruncate()
+  | SQLMerge()
+  | SQLConnect()
+  )
+}
+
+void SQLInsert() :
+{}
+{
+  < SQL_INSERT > [ < SQL_INTO > ] SQLFromItem() 
+  [  < SQL_LPARENCHAR > ( [ < SQL_COMMA_CHAR > ] SQLColumn() )+ < SQL_RPARENCHAR > ]
+  ( < SQL_VALUES > < SQL_LPARENCHAR >  ( [ < SQL_COMMA_CHAR > ] SQLSimpleExpr() )+ < SQL_RPARENCHAR >
+  |  [ < SQL_LPARENCHAR > ]  SQLSubSelect()  [ < SQL_RPARENCHAR > ]
+  )
+  [ SQLErrorLoggingClause() ]
+}
+
+void SQLFromItem() :
+{}
+{
+  (
+    LOOKAHEAD(SQLSelectBody()) SQLSelectBody()
+   | ( [<SQL_ORA_LATERAL >] < SQL_LPARENCHAR > ( LOOKAHEAD(SQLSubJoin()) SQLSubJoin() | SQLSubSelect() ) [ SQLSubQueryRestrictionClause()]< SQL_RPARENCHAR > )
+   | SQLTable()
+   |  <ESQL_ONLY > <SQL_LPARENCHAR> SQLTable() <SQL_RPARENCHAR> 
+   | SQLTableCollectionExpr()
+  )
+  [ SQLPivotClause() | SQLUnpivotClause() ]
+  [ SQLAlias() ]
+}
+
+void SQLSubQueryRestrictionClause() : 
+{}
+{
+< SQL_WITH> ( < ESQL_READ> < ESQL_ONLY>| < SQL_CHECK> < ESQL_OPTION> ) 
+}
+
+void SQLTableCollectionExpr() : 
+{}
+{
+< SQL_TABLE> <SQL_LPARENCHAR> ( SQLSubSelect() | SQLFunction() | SQLColumn() ) <SQL_RPARENCHAR> [ <SQL_LPARENCHAR> <SQL_PLUSCHAR> <SQL_RPARENCHAR> ]
+}
+
+void SQLPivotClause() : 
+{}
+{
+
+ < SQL_ORA_PIVOT > [ < SQL_ORA_XML > ]
+  <SQL_LPARENCHAR>  ( [ < SQL_COMMA_CHAR > ] SQLFunction() [ [ < SQL_AS>] SQLAlias() ] )+
+    SQLPivotForClause()
+    SQLPivotInClause()
+  <SQL_RPARENCHAR>
+}
+void SQLPivotForClause() : 
+{}
+{
+< ESQL_FOR >  [ <SQL_LPARENCHAR> ] ( [ < SQL_COMMA_CHAR > ] SQLColumn() )+ [ <SQL_RPARENCHAR > ]
+}
+void SQLPivotInClause() : 
+{}
+{
+< SQL_IN> <SQL_LPARENCHAR> ( [ <SQL_LPARENCHAR > ]  ( [ < SQL_COMMA_CHAR > ]  SQLPrimaryExpr() )+
+                             [ <SQL_RPARENCHAR > ]  [ [ < SQL_AS>] SQLAlias()] )+
+                            | SQLSubQuery()
+                            | ( [ < SQL_COMMA_CHAR >  ] < SQL_ANY>)+
+   <SQL_RPARENCHAR>
+}
+
+void SQLUnpivotClause() : 
+{}
+{
+< SQL_ORA_UNPIVOT > [ (< SQL_INCLUDE > | < SQL_EXCLUDE >) < SQL_ORA_NULLS > ]
+<SQL_LPARENCHAR>  [ <SQL_LPARENCHAR> ] ( [ < SQL_COMMA_CHAR >  ] SQLColumn() )+ [ <SQL_RPARENCHAR> ] 
+  SQLPivotForClause()
+  SQLUnPivotInClause()
+<SQL_RPARENCHAR>
+}
+
+void SQLUnPivotInClause() : 
+{}
+{
+< SQL_IN>
+<SQL_LPARENCHAR>
+(
+   [ < SQL_COMMA_CHAR > ]
+   ( SQLColumn() |
+     <SQL_LPARENCHAR> SQLColumn() ( <SQL_COMMA_CHAR> SQLColumn() )* <SQL_RPARENCHAR>
+   )   
+   [  < SQL_AS> ( < SQL_CHAR_LITERAL > |  <SQL_LPARENCHAR>  ( [ < SQL_COMMA_CHAR >  ] < SQL_CHAR_LITERAL > )+  [ <SQL_RPARENCHAR > ] ) ]
+)+
+<SQL_RPARENCHAR>
+}
+
+void SQLColumn() :
+{}
+{
+  SQLGeneralIdentifier()
+  [ <SQL_PERIOD_CHAR> SQLGeneralIdentifier() [ <SQL_PERIOD_CHAR> SQLGeneralIdentifier() ] ]
+}
+
+void SQLSelect() :
+{}
+{
+  [ SQLWithList() ] SQLSelectBody() [ SQLForUpdateClause() ]
+}
+
+
+void SQLWithList() :
+{}
+{
+  < SQL_WITH > ( [ < SQL_COMMA_CHAR > ] SQLWithItem() )+
+}
+
+void SQLWithItem() :
+{}
+{
+  SQLGeneralIdentifier()
+  [ < SQL_LPARENCHAR > SQLSelectItemsList() < SQL_RPARENCHAR > ]
+  < SQL_AS > < SQL_LPARENCHAR > SQLSelectBody() < SQL_RPARENCHAR >
+  [ SQLSearchClause()]
+  [ SQLCycleClause() ]
+}
+
+void SQLSearchClause() :
+{}
+{
+ < SQL_SEARCH > ( < SQL_ORA_DEPTH>  | < SQL_BREADTH > )  < SQL_ORA_FIRST> < SQL_BY>
+            (
+              [ < SQL_COMMA_CHAR > ]  SQLGeneralIdentifier() [ < SQL_ASC> | < SQL_DESC> ]
+              [ < SQL_ORA_NULLS> < SQL_ORA_FIRST>| < SQL_ORA_NULLS> < SQL_ORA_LAST>]
+            )+
+        < SQL_SET> SQLColumn()
+}
+
+void SQLCycleClause() : 
+{}
+{
+< SQL_ORA_CYCLE > ( [ < SQL_COMMA_CHAR > ]  SQLGeneralIdentifier() )+
+    < SQL_SET> SQLGeneralIdentifier() < ESQL_TO > <SQL_CHAR_LITERAL >
+    < SQL_DEFAULT > <SQL_CHAR_LITERAL >
+
+}
+
+void SQLSelectBody() :
+{}
+{
+  ( LOOKAHEAD(SQLSubQuery()) SQLSubQuery() | SQLSimpleSelect() )
+}
+
+void SQLSubQuery() :
+{}
+{
+  ( SQLSimpleSelect() | < SQL_LPARENCHAR >   SQLSubQuery()  < SQL_RPARENCHAR > )
+  ( ( < SQL_UNION > [ < SQL_ALL > ] | < SQL_ORA_INTERSECT> | < SQL_ORA_MINUS > )
+    ( SQLSimpleSelect() | < SQL_LPARENCHAR >   SQLSubQuery()  < SQL_RPARENCHAR > )
+  )*
+  [ SQLOrderByElements() ]
+}
+
+void SQLSimpleSelect() :
+{}
+{
+  < SQL_SELECT > [ < SQL_ALL > | < SQL_ORA_UNIQUE >  | < SQL_ALL> |  < SQL_DISTINCT > [ < SQL_ON > < SQL_LPARENCHAR >  SQLSelectItemsList() < SQL_RPARENCHAR > ] ]
+  SQLSelectItemsList()  // TODO
+  [ SQLIntoClause() ]< SQL_FROM > SQLFromItem() [ SQLJoinsList() ]
+  [ SQLWhereClause() ]
+  [ SQLHierarchicalQueryClause() ]
+  [ SQLGroupByColumnReferences() ]
+  [ SQLHaving() ]
+  [ SQLOrderByElements() ]
+  [ SQLRowLimitingClause() ]  
+}
+
+void SQLSelectItemsList() :
+{}
+{
+  ( [ < SQL_COMMA_CHAR > ] SQLSelectItem() )+
+}
+
+void SQLSelectItem() :
+{}
+{
+  ( < SQL_ASTERISKCHAR >
+  | LOOKAHEAD(SQLAllTableColumns()) SQLAllTableColumns()
+  | SQLSimpleExpr() [ SQLAlias() ]
+  )
+}
+
+void SQLAllTableColumns() :
+{}
+{
+  SQLTable() <SQL_PERIOD_CHAR> < SQL_ASTERISKCHAR >
+}
+
+void SQLAlias() :
+{}
+{
+  [ < SQL_AS > ] SQLGeneralIdentifier()
+}
+
+void SQLIntoClause() :
+{}
+{
+  < SQL_INTO >  ( [ < SQL_COMMA_CHAR > ] SQLTable() )+
+}
+
+void SQLWhereClause() :
+{}
+{
+  < SQL_WHERE > SQLExpr()
+}
+
+void SQLHierarchicalQueryClause() : 
+{}
+{
+( < ESQL_CONNECT> < SQL_BY>[ < SQL_NOCYCLE > ] SQLExpr() [ < SQL_START> < SQL_WITH>SQLExpr() ]
+| < SQL_START> < SQL_WITH>SQLExpr() < ESQL_CONNECT> < SQL_BY>[ < SQL_NOCYCLE > ] SQLExpr()
+)
+}
+
+void SQLGroupByColumnReferences() :
+{}
+{
+  < SQL_GROUP > < SQL_BY > ( [ < SQL_COMMA_CHAR > ] ( SQLSimpleExpr() | SQLGroupingSetsClause() ) )+
+}
+
+void SQLGroupingSetsClause() : 
+{}
+{
+< SQL_ORA_GROUPING> <SQL_SETS> <SQL_LPARENCHAR>
+ ([ <SQL_COMMA_CHAR> ] <SQL_LPARENCHAR> SQLSimpleExprList()  <SQL_RPARENCHAR> )+
+ <SQL_RPARENCHAR>
+}
+
+void SQLHaving() :
+{}
+{
+  < SQL_HAVING > SQLExpr()
+}
+
+void SQLOrderByElements() :
+{}
+{
+  < SQL_ORDER > [ < SQL_SIBLINGS > ] < SQL_BY > ( [ < SQL_COMMA_CHAR > ] SQLOrderByElement() )+
+}
+
+void SQLOrderByElement() :
+{}
+{
+  SQLSimpleExpr() [ < SQL_ASC > |  < SQL_DESC >  ]
+  [ < SQL_ORA_NULLS> < SQL_ORA_FIRST>| < SQL_ORA_NULLS> < SQL_ORA_LAST>]
+}
+
+void SQLRowLimitingClause() :
+{
+}
+{
+  (
+   < SQL_OFFSET> <SQL_INTEGER> ( < ESQL_ROW > | < SQL_ROWS > )
+  | 
+   < ESQL_FETCH > ( < SQL_ORA_FIRST> | < ESQL_NEXT > )
+   [ <SQL_INTEGER> [  < SQL_PERCENT >   ] ]
+      ( < ESQL_ROW > | < SQL_ROWS > ) ( < ESQL_ONLY > | < SQL_WITH> < SQL_TIES> ) 
+  )+       
+}
+
+void SQLForUpdateClause() :
+{
+}
+{
+< ESQL_FOR> < SQL_UPDATE> [ < SQL_OF > SQLColumn() ( < SQL_COMMA_CHAR > SQLColumn() )* ]
+  [ ( < ESQL_NOWAIT > | < SQL_WAIT > <SQL_INTEGER >  | < SQL_SKIP> < SQL_LOCKED>) ]  
+}
+
+void SQLSubJoin() :
+{}
+{
+  SQLFromItem()
+  SQLJoinExpr()
+}
+
+void SQLJoinsList() :
+{}
+{
+  ( SQLJoinExpr() )+
+}
+
+void SQLJoinExpr() :
+{}
+{
+  [ SQLQueryPartitionClause() ]
+  [ ( < SQL_LEFT > | < SQL_RIGHT > | < SQL_FULL > | < SQL_NATURAL > |  < SQL_CROSS >) ]
+  [ ( < SQL_OUTER > | < SQL_INNER > ) ]
+  ( < SQL_JOIN > | < SQL_COMMA_CHAR > | < SQL_ORA_APPLY >) SQLFromItem()
+  [  < SQL_ON > SQLExpr() 
+  |  < SQL_USING > < SQL_LPARENCHAR >  ( [ < SQL_COMMA_CHAR > ] SQLColumn() )+ < SQL_RPARENCHAR > 
+  ]
+}
+
+void SQLQueryPartitionClause() : 
+{}
+{
+< SQL_ORA_PARTITION> < SQL_BY> ( ( [ < SQL_COMMA_CHAR > ]  SQLPrimaryExpr() )+
+                                 | <SQL_LPARENCHAR> ( [ < SQL_COMMA_CHAR > ]  SQLPrimaryExpr() )+ <SQL_RPARENCHAR>
+                               )
+}
+
+void SQLUpdate() :
+{
+/*
+*SQLFromItem() | <ESQL_ONLY> <SQL_LPARENCHAR> SQLFromItem() <SQL_RPARENCHAR>를 필수로 하지 않은 이유
+*Merge에서 SQLUpdate를 호출할 경우에는 테이블명을 입력하지 않기 때문에 선택으로 처리 함
+*/
+}
+{
+  < SQL_UPDATE > [ SQLFromItem() | <ESQL_ONLY> <SQL_LPARENCHAR> SQLFromItem() <SQL_RPARENCHAR> ] < SQL_SET >
+  (    [ <SQL_COMMA_CHAR> ]
+	  (  SQLColumn() <ESQL_EQ> SQLSimpleExpr()
+	   |
+	   <SQL_LPARENCHAR>  ( [ <SQL_COMMA_CHAR> ] SQLColumn() )+ <SQL_RPARENCHAR> <ESQL_EQ >
+	   <SQL_LPARENCHAR> SQLSelectBody() <SQL_RPARENCHAR>
+	  )
+  )+ 
+  [ SQLWhereClause() ]
+  [ SQLErrorLoggingClause() ]
+}
+
+void SQLDelete() :
+{}
+{
+  < SQL_DELETE > [ < SQL_FROM > ] ( SQLFromItem() | <ESQL_ONLY> <SQL_LPARENCHAR> SQLFromItem() <SQL_RPARENCHAR> )
+  [ SQLWhereClause() ]
+  [ SQLErrorLoggingClause() ]
+}
+
+void SQLErrorLoggingClause() : 
+{}
+{
+
+< SQL_ORA_LOG> < SQL_ERRORS> [ < SQL_INTO> SQLTable() ]
+  [ <SQL_LPARENCHAR> SQLSimpleExpr() <SQL_RPARENCHAR> ]
+  [ < SQL_REJECT> < SQL_LIMIT>( <SQL_INTEGER> | < SQL_UNLIMITED > ) ]
+}
+
+
+void SQLGeneralIdentifier() :
+{}
+{
+  ( < SQL_IDENTIFIER > [< SQL_DOUBLE >] | < SQL_QUOTED_IDENTIFIER > )[<SQL_CHAR_LITERAL >]
+}
+
+void SQLTableWithAlias() :
+{}
+{
+   SQLTable() [ SQLAlias() ]
+}
+
+void SQLTable() :
+{}
+{
+  (  SQLGeneralIdentifier() ( <SQL_PERIOD_CHAR> SQLGeneralIdentifier() )+ | SQLGeneralIdentifier() )
+  [ SQLPartitionExtensionClause() | <ESQL_ASTRISK> SQLDBLink() ]
+  [ SQLSampleClause() ]
+  
+}
+
+void SQLPartitionExtensionClause() : 
+{}
+{
+
+( < SQL_ORA_PARTITION > ( <SQL_LPARENCHAR>  SQLGeneralIdentifier() <SQL_RPARENCHAR> |
+                      < ESQL_FOR> <SQL_LPARENCHAR> SQLSimpleExpr() (< SQL_COMMA_CHAR > SQLSimpleExpr())* <SQL_RPARENCHAR>
+                    ) 
+| < SQL_ORA_SUBPARTITION > ( <SQL_LPARENCHAR> SQLGeneralIdentifier() <SQL_RPARENCHAR> |
+                     < ESQL_FOR> < ESQL_FOR> <SQL_LESSTHANCHAR> SQLSimpleExpr() ( < SQL_COMMA_CHAR > SQLSimpleExpr() )*  <SQL_RPARENCHAR>
+                   )
+)
+}
+
+void SQLDBLink() : 
+{}
+{
+SQLGeneralIdentifier()[ <SQL_PERIOD_CHAR> SQLGeneralIdentifier() ( <SQL_PERIOD_CHAR> SQLGeneralIdentifier() )* ]
+[ <ESQL_ASTRISK> SQLGeneralIdentifier() ]
+}
+
+void SQLSampleClause() : 
+{}
+{
+
+< SQL_ORA_SAMPLE > [ < SQL_BLOCK > ]
+       <SQL_LPARENCHAR> <SQL_INTEGER> <SQL_RPARENCHAR>
+       [ < SQL_SEED > <SQL_LPARENCHAR> <SQL_INTEGER> <SQL_RPARENCHAR> ]
+} 
+
+
+
+void SQLExpr() :
+{}
+{
+  ( LOOKAHEAD(SQLOrExpr()) SQLOrExpr() | < SQL_LPARENCHAR > SQLExpr() < SQL_RPARENCHAR > )
+}
+
+void SQLOrExpr() :
+{}
+{
+  SQLAndExpr() ( < SQL_OR > SQLAndExpr() )*
+}
+
+void SQLAndExpr() :
+{}
+{
+  (
+    LOOKAHEAD(SQLStateCondition()) SQLStateCondition() |
+    [ < SQL_NOT > ] < SQL_LPARENCHAR > SQLOrExpr() < SQL_RPARENCHAR >
+  )
+  (
+    < SQL_AND >
+    ( LOOKAHEAD(SQLStateCondition()) SQLStateCondition() | [ < SQL_NOT > ] < SQL_LPARENCHAR > SQLOrExpr() < SQL_RPARENCHAR > )
+  )*
+}
+
+void SQLStateCondition() :
+{}
+{
+  ( LOOKAHEAD(SQLCondition()) SQLCondition() | SQLRegularCondition() )
+}
+
+void SQLRegularCondition() :
+{}
+{
+  [ < SQL_NOT > ] SQLComparisonItem()
+  ( <  SQL_MORETHANCHAR > | < SQL_LESSTHANCHAR >  | [< SQL_XORCHAR > ] <ESQL_EQ>
+   | < SQL_MORETHANOREQUAL > | < SQL_LESSTHANOREQUAL > | ( < SQL_UNEQUALCHAR > | <  SQL_NOTEQUALCHAR >  ) )
+  SQLComparisonItem()
+}
+
+void SQLCondition() :
+{}
+{
+  (
+    LOOKAHEAD(SQLInExpr()) SQLInExpr()
+  | LOOKAHEAD(SQLExistsExpr()) SQLExistsExpr()
+  | LOOKAHEAD(SQLBetween()) SQLBetween()
+  | LOOKAHEAD(SQLIsNullExpr()) SQLIsNullExpr()
+  | SQLLikeExpr()
+  )
+}
+
+void SQLInExpr() :
+{}
+{
+  ( LOOKAHEAD(SQLSimpleExpr()) SQLSimpleExpr()
+   |  <SQL_LPARENCHAR> SQLSimpleExpr() ( <SQL_COMMA_CHAR> SQLSimpleExpr())+ <SQL_RPARENCHAR>
+  )  [ < SQL_NOT > ] < SQL_IN > < SQL_LPARENCHAR > ( LOOKAHEAD(SQLSubSelect()) SQLSubSelect() | SQLSimpleExprList() |  <SQL_LPARENCHAR >  ( [ < SQL_COMMA_CHAR > ]  SQLPrimaryExpr() )+ < SQL_RPARENCHAR > ) < SQL_RPARENCHAR >
+}
+
+void SQLBetween() :
+{}
+{
+  SQLSimpleExpr() [ < SQL_NOT > ] < SQL_BETWEEN > SQLSimpleExpr() < SQL_AND > SQLSimpleExpr()
+}
+
+void SQLLikeExpr() :
+{}
+{
+  SQLSimpleExpr()
+  [ < SQL_NOT > ] < SQL_LIKE > SQLSimpleExpr()
+  [ < SQL_ESCAPE > < SQL_CHAR_LITERAL > ]
+}
+
+void SQLIsNullExpr() :
+{}
+{
+  SQLSimpleExpr() < SQL_IS > [ < SQL_NOT > ] < SQL_NULL >
+}
+
+void SQLExistsExpr() :
+{}
+{
+  [ < SQL_NOT > ] < SQL_EXISTS > SQLSimpleExpr()
+}
+
+
+void SQLSimpleExprList() :
+{}
+{
+  SQLSimpleExpr() ( < SQL_COMMA_CHAR >SQLSimpleExpr() )*
+}
+
+void SQLComparisonItem() :
+{}
+{
+  (
+    SQLAllComparisonExpr()
+  | SQLAnyComparisonExpr()
+  | SQLSimpleExpr()
+  )
+}
+
+void SQLAllComparisonExpr() :
+{}
+{
+  < SQL_ALL > < SQL_LPARENCHAR >  SQLSubSelect() < SQL_RPARENCHAR >
+}
+
+void SQLAnyComparisonExpr() :
+{}
+{
+  ( < SQL_ANY > | < SQL_SOME > ) < SQL_LPARENCHAR >  SQLSubSelect() < SQL_RPARENCHAR >
+}
+
+void SQLSimpleExpr() :
+{}
+{
+  ( LOOKAHEAD(SQLBitwiseAndOr()) SQLBitwiseAndOr() | < SQL_LPARENCHAR > SQLBitwiseAndOr() < SQL_RPARENCHAR > )
+}
+
+void SQLBitwiseAndOr() :
+{}
+{
+  SQLConcatExpr()
+  (  ( < SQL_ORCHAR > | < SQL_ANDCHAR > ) SQLConcatExpr() )*
+}
+
+void SQLConcatExpr() :
+{}
+{
+  SQLAdditiveExpr() ( <  SQL_CONCATCHAR >   SQLAdditiveExpr() )*
+}
+
+void SQLAdditiveExpr() :
+{}
+{
+  [< SQL_MINUSCHAR >]SQLMultiplicativeExpr() (  ( < SQL_PLUSCHAR > | < SQL_MINUSCHAR > ) SQLMultiplicativeExpr() )*
+}
+
+void SQLMultiplicativeExpr() :
+{}
+{
+  ( LOOKAHEAD(SQLBitwiseXor()) SQLBitwiseXor() | < SQL_LPARENCHAR > SQLAdditiveExpr() < SQL_RPARENCHAR > )
+  (
+    
+    ( < SQL_ASTERISKCHAR > | <  SQL_SLASHCHAR > )
+    ( LOOKAHEAD(SQLBitwiseXor()) SQLBitwiseXor() | < SQL_LPARENCHAR > SQLAdditiveExpr() < SQL_RPARENCHAR > )
+  )*
+}
+
+void SQLBitwiseXor() :
+{}
+{ SQLPrimaryExpr()
+  ( < SQL_XORCHAR > SQLPrimaryExpr() )*
+}
+
+void SQLPrimaryExpr() :
+{}
+{
+  (
+    < SQL_NULL > | SQLCaseWhenExpr() | < SQL_QUESTIONCHAR >
+    | LOOKAHEAD( [ < SQL_PLUSCHAR > | < SQL_MINUSCHAR >] SQLFunction())
+    [ < SQL_PLUSCHAR > | < SQL_MINUSCHAR >] SQLFunction()
+  | LOOKAHEAD([ < SQL_PLUSCHAR > | < SQL_MINUSCHAR > ] < SQL_DOUBLE >)
+    [ < SQL_PLUSCHAR > | < SQL_MINUSCHAR > ] < SQL_DOUBLE >
+  | LOOKAHEAD( [ < SQL_PLUSCHAR > | < SQL_MINUSCHAR > ] < SQL_INTEGER >)
+    [ < SQL_PLUSCHAR >| < SQL_MINUSCHAR > ] < SQL_INTEGER >
+  |  [ < SQL_PLUSCHAR > | < SQL_MINUSCHAR > | <ESQL_PRIOR> ] SQLColumn() [ <SQL_LPARENCHAR> <SQL_PLUSCHAR> <SQL_RPARENCHAR> ]
+  |  [ < SQL_PLUSCHAR > | < SQL_MINUSCHAR > ] < SQL_LPARENCHAR > SQLPrimaryExpr()< SQL_RPARENCHAR >
+  | < SQL_CHAR_LITERAL >
+  | [ < SQL_PLUSCHAR > | < SQL_MINUSCHAR > ] < SQL_LPARENCHAR > SQLSubSelect() < SQL_RPARENCHAR >
+  | < SQL_D_CHAR > < SQL_CHAR_LITERAL > < SQL_RBRACKET > 
+  | < SQL_T_CHAR >  < SQL_CHAR_LITERAL > < SQL_RBRACKET > 
+  | < SQL_TS_CHAR >  token = < SQL_CHAR_LITERAL > < SQL_RBRACKET >
+  | <ESQL_CURSOR> <SQL_LPARENCHAR> SQLSubSelect() <SQL_RPARENCHAR>
+  )
+}
+
+void SQLCaseWhenExpr() :
+{}
+{
+  < SQL_CASE >
+  (
+    ( SQLWhenThenSearchCondition() )+ [ < SQL_ELSE > SQLSimpleExpr() ]
+    | SQLSimpleExpr() ( SQLWhenThenValue() )* [ < SQL_ELSE > SQLSimpleExpr() ]
+  )
+  < SQL_END >
+}
+
+void SQLWhenThenSearchCondition() :
+{}
+{
+  < SQL_WHEN > SQLExpr() < SQL_THEN > SQLSimpleExpr()
+}
+
+void SQLWhenThenValue() :
+{}
+{
+  < SQL_WHEN > SQLPrimaryExpr() < SQL_THEN > SQLSimpleExpr()
+}
+
+void SQLFunction() :
+{}
+{
+  [ <SQL_FN_CHAR >]
+  (
+    SQLGeneralIdentifier()
+    | < SQL_ORA_LOG >
+    | < SQL_ORA_TRIM >
+    | < SQL_ORA_LENGTH >
+    | < SQL_ORA_DEPTH >
+    | < SQL_ORA_FIRST >
+    | < SQL_ORA_GROUPING>
+    | < SQL_ORA_LAST>
+    | < SQL_ORA_MAX>
+    | < SQL_ORA_REF >
+    | < SQL_ORA_VALUE>  )
+  [  <SQL_PERIOD_CHAR> SQLGeneralIdentifier() [ <SQL_PERIOD_CHAR> SQLGeneralIdentifier() ] ]
+  < SQL_LPARENCHAR > [ [ < SQL_DISTINCT > | < SQL_ALL > ] ( SQLSimpleExprList()| < SQL_ASTERISKCHAR > )]
+  < SQL_RPARENCHAR > [ < SQL_RBRACKET >  ]
+  [ <SQL_ORA_OVER> <SQL_LPARENCHAR> SQLQueryPartitionClause() <SQL_RPARENCHAR> ] 
+}
+
+void SQLSubSelect() :
+{}
+{
+  SQLSelectBody()
+}
+
+void SQLTruncate() :
+{}
+{
+  < SQL_TRUNCATE > < SQL_TABLE > SQLTable()
+}
+
+void SQLMerge() :
+{}
+{
+< SQL_MERGE > 
+   < SQL_INTO> SQLTableWithAlias()
+   < SQL_USING> ( SQLTable()
+         | SQLSubSelect()
+         )  [ SQLAlias() ]
+   < SQL_ON> <SQL_LPARENCHAR> SQLExpr() <SQL_RPARENCHAR>
+   [ < SQL_WHEN > < SQL_MATCHED > < SQL_THEN> SQLUpdate() ]
+   [ < SQL_WHEN > < SQL_NOT > < SQL_MATCHED > < SQL_THEN> SQLMergeInsert() ]
+   [ SQLErrorLoggingClause() ]
+}
+
+void SQLMergeInsert() :
+{
+}
+{
+  < SQL_INSERT >  
+  < SQL_LPARENCHAR > SQLColumn() ( < SQL_COMMA_CHAR > SQLColumn() )* < SQL_RPARENCHAR > 
+  ( < SQL_VALUES > < SQL_LPARENCHAR > SQLSimpleExpr() ( < SQL_COMMA_CHAR > SQLSimpleExpr() )* < SQL_RPARENCHAR >
+  | [  < SQL_LPARENCHAR > ] ( SQLSubSelect() ) [ < SQL_RPARENCHAR > ]
+  )
+}
+  
+void SQLConnect() :
+{
+}
+{
+  < ESQL_CONNECT > <SQL_IDENTIFIER > <ESQL_IDENTIFIED > <SQL_BY > ( <SQL_IDENTIFIER > )+
+  [ <SQL_USING> <SQL_IDENTIFIER > ]
+}
+
+/*JAVACC_NON_TERMINAL_END*/

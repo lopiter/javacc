@@ -1,0 +1,110 @@
+options {
+  IGNORE_CASE = true;
+  DEBUG_LOOKAHEAD = true;
+  STATIC = false;
+  ERROR_REPORTING = false;
+  OUTPUT_DIRECTORY = "../src/com/lopiter/parser";
+}
+
+PARSER_BEGIN(MyParser)
+
+package com.lopiter.parser;
+
+public class MyParser
+{}
+
+PARSER_END(MyParser)
+
+
+SKIP :
+{
+ < ("\n")+ >
+}
+
+SKIP :
+{
+ < ( " " | "\t" | "\r")+ >
+}
+
+
+TOKEN :{
+< FUNCTION : "FUNCTION">
+| < FOR : "FOR">
+| < IF : "IF">
+| < NULL : "NULL">
+| < PRINT :"PRINT" >
+| < READ : "READ" >
+| <TO : "TO" >
+| < LEFT_BRACE : "{" >
+| < RIGHT_BRACE : "}" >
+| < LEFT_PARENTHESIS : "(">
+| < RIGHT_PARENTHESIS : ")">
+| < COMMA_CHAR : ",">
+| < IF_EQUAL : "==">
+| < IF_NOT_EQUAL : "!=">
+| < INTEGER : (< DIGIT >)+ >
+| < #DIGIT : [ "0"-"9" ] >
+| < IDENTIFIER :
+    (< LETTER >)+
+    (
+      < DIGIT >
+    | < LETTER >
+    | < SPECIAL_CHARS >
+    )* >
+| < CHAR_LITERAL :
+    "'" (~[ "'" ])* "'"
+    (
+      "'" (~[ "'" ])* "'"
+    )* >
+| < QUOTED_IDENTIFIER :
+    "\"" (~[ "\n", "\r", "\"" ])* "\"" >
+| < #LETTER : [ "a"-"z", "A"-"Z", "_"] >
+| < #SPECIAL_CHARS :
+   "-"
+  | "_"
+ >
+}
+
+void function() :
+{}
+{
+    <FUNCTION> <IDENTIFIER> <LEFT_PARENTHESIS> [<IDENTIFIER>] (<COMMA_CHAR> <IDENTIFIER>)* <RIGHT_PARENTHESIS>
+    <LEFT_BRACE>
+    statement()
+    <RIGHT_BRACE>
+}
+
+void statement() :
+{}
+{
+    (printStatement()
+    | forStatement()
+    | ifStatemet()
+    | readStatement()
+    )+
+}
+
+void forStatement() :
+{}
+{
+    <FOR> <INTEGER> <TO> <INTEGER> <LEFT_BRACE> statement() <RIGHT_BRACE>
+}
+
+void printStatement():
+{}
+{
+    <PRINT> (<IDENTIFIER> |  <QUOTED_IDENTIFIER>)
+}
+
+void ifStatemet() :
+{}
+{
+    <IF> (<IDENTIFIER> | <NULL> ) ( <IF_EQUAL> | <IF_NOT_EQUAL> ) (<IDENTIFIER> | <NULL> )
+    <LEFT_BRACE> statement() <RIGHT_BRACE>
+}
+
+void readStatement() :
+{}
+{
+    <READ> <QUOTED_IDENTIFIER> <TO> <IDENTIFIER>
+}
