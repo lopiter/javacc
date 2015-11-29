@@ -139,8 +139,7 @@ void callStatement() :
 
 void setValueStatement() :
 {
-    Token varToken;
 }
 {
-    <VAR> varToken = <IDENTIFIER>{System.out.println(varToken);} [<EQUAL> (<IDENTIFIER> | <QUOTED_IDENTIFIER> | <INTEGER> ) ]
+    <VAR> <IDENTIFIER> [<EQUAL> (<IDENTIFIER> | <QUOTED_IDENTIFIER> | <INTEGER> ) ]
 }
